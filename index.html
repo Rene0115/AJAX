@@ -8,13 +8,21 @@
 </head>
 <body>
     <button onclick="showCountries()"> Show Countries</button>
+    <div id="feed"></div>
     <script>
         function showCountries() {
    const xhr = new XMLHttpRequest()
-   xhr.open('GET', "https://restcountries.com/v3.1/all", true);
+   xhr.open('GET', "https://restcountries.com/v2/all", true);
    xhr.onload = function () {
     if (xhr.status === 200) {
         console.log('success');
+        const countries = JSON.parse(this.response)
+        console.log(countries);
+        countries.forEach(country => {
+          const countryCard = document.createElement('div')
+          countryCard.innerHTML = country.name
+          document.getElementById('feed').appendChild(countryCard)
+        })
     }
    }
    xhr.send();
